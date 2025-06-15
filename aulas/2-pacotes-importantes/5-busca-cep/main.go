@@ -1,4 +1,4 @@
-repackage main
+package main
 
 import (
 	"encoding/json"
