@@ -1,0 +1,42 @@
+package main
+
+import (
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
+)
+
+type Product struct {
+	ID    int `gorm:"primaryKey"`
+	Name  string
+	Price float64
+}
+
+func main() {
+	dsn := "root:root@tcp(localhost:3306)/goexpert"
+	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	if err != nil {
+		panic(err)
+	}
+
+	//Cria a tabela com base na struct
+	db.AutoMigrate(&Product{})
+
+	// db.Create(&Product{
+	// 	Name:  "Notebook Dell",
+	// 	Price: 1000.00,
+	// })
+
+	//create batch
+	products := []Product{
+		{
+			Name:  "Notebook Dell",
+			Price: 1000.00,
+		},
+		{
+			Name:  "Notebook Samsung",
+			Price: 1000.00,
+		},
+	}
+
+	db.Create(products)
+}
