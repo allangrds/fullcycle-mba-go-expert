@@ -1,24 +1,61 @@
-# Fullcycle | MBA | GO Expert
+# FullCycle | MBA | Go Expert
 
-## Comandos Go CLI
+Repository created to store code, examples, and exercises completed during the **Go Expert** MBA in [FullCycle](https://fullcycle.com.br/)
 
-- `go env`: show Go configured env variables
-  - Example: `GOOS` variable
 
-- `go run`: Compila e executa código Go
-  - Exemplo: `go run main.go`
+## Table of contents
+- [About](#about)
+- [Go CLI Commands](#go-cli-commands)
+  - [Information and Environment](#information-and-environment)
+  - [Execution](#execution)
+  - [Module Management](#module-management)
+  - [Application Build](#application-build)
+- [Useful links](#useful-links)
 
-- `go mod`: Gerenciamento do uso de módulos no projeto
-  - Exemplo: `go mod init <name>`
+## About
 
-- `go mod tidy` - baixa as dependências e atualiza arquivo `go.mod`
+This repository contains:
 
-- `go get`: Baixa packages importados e suas dependências
-  - Exemplo `go get github.com/google/uuid`
+- Notes and summaries about Go
+- Practical course exercises
+- Experiment and test code
+- Useful references for consultation
 
-- `go build`: Faz o build do arquivo Go
-  - Exemplo `go build`, se já tiver criado um módulo através do `go mod init <name>`
-  - Exemplo `go build main.go`
-  - Exemplo `GOOS=windows go build main.go`
-  - Exemplo `GOOS=linux go build main.go`
-  - https://www.digitalocean.com/community/tutorials/building-go-applications-for-different-operating-systems-and-architectures
+
+### Go CLI Commands
+
+#### Information and Environment
+- `go env` — Displays environment variables configured for Go
+  ```bash
+  go env GOOS
+  ````
+
+#### Execution
+- `go run` — Compiles and runs the Go code
+  ```bash
+    go run main.go
+  ```
+
+#### Module Management
+- `go mod init <name>` — Initializes a new Go module
+- `go mod tidy `— Downloads dependencies and updates go.mod
+- `go get <package>` — Downloads packages and dependencies
+  ```bash
+    go get github.com/google/uuid
+  ```
+
+#### Application Build
+- `go build` — Compiles the current project
+  ```bash
+    go build main.go
+    GOOS=windows go build main.go
+    GOOS=linux go build main.go
+  ```
+  Reference: [Cross Compilation com Go](https://www.digitalocean.com/community/tutorials/building-go-applications-for-different-operating-systems-and-architectures)
+
+### Useful links
+
+- [Official Go Documentation](https://go.dev/doc/)
+- [Tour do Go](https://tour.golang.org/)
+- [Go by Example](https://gobyexample.com/)
+- [Effective Go](https://go.dev/doc/effective_go)
