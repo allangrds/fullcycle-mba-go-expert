@@ -54,7 +54,11 @@ This repository contains:
   Reference: [Cross Compilation com Go](https://www.digitalocean.com/community/tutorials/building-go-applications-for-different-operating-systems-and-architectures)
 
 #### Test
-- `go test -v` — Execute tests inside folder
+- `go test` — Execute tests in current folder only
+- `go test ./...` — Execute all tests recursively in all subfolders
+- `go test -v` — Execute tests inside folder with verbose output
+- `go test -v ./...` — Execute all tests recursively with verbose output
+- `go test ./internal/infra/database` — Execute tests in specific package/folder
 - `go test -cover` — Execute tests with coverage percent
 - `go test -coverprofile=coverage.out` — Execute tests with coverage and putting the results in a file percent
 - `go tool cover -html=coverage.out` — Print a coverage.html file using the coverage.out to show exactly covered/uncovered lines
