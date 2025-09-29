@@ -169,7 +169,7 @@ router.Use(middleware.Recoverer)   // Recuperação de panics
 router.Route("/products", func(router chi.Router) {
     router.Use(jwtauth.Verifier(configs.TokenAuth))
     router.Use(jwtauth.Authenticator)
-    
+
     router.Post("/", productHandler.CreateProduct)
     router.Get("/{id}", productHandler.GetProduct)
     router.Put("/{id}", productHandler.UpdateProduct)
