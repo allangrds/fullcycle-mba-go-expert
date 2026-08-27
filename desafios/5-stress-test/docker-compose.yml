@@ -1,0 +1,22 @@
+services:
+  # Roda o teste de carga lendo URL/REQUESTS/CONCURRENCY do .env do diretório
+  # (o Compose carrega esse arquivo automaticamente para substituir as
+  # variáveis abaixo, sem precisar de "env_file" nem de o binário Go saber
+  # ler variáveis de ambiente):
+  #   docker compose run --rm stress-test
+  stress-test:
+    build: .
+    command: ["--url=${URL}", "--requests=${REQUESTS}", "--concurrency=${CONCURRENCY}"]
+
+  # Roda a suíte de testes reaproveitando a etapa "builder" do Dockerfile
+  # (toolchain Go completo + código-fonte), sem precisar de Go instalado
+  # na máquina:
+  #   docker compose run --rm test
+  test:
+    build:
+      context: .
+      target: builder
+    working_dir: /app
+    environment:
+      CGO_ENABLED: "1" # a imagem base golang:alpine vem com CGO_ENABLED=0; -race precisa de cgo
+    command: go test ./... -v -race

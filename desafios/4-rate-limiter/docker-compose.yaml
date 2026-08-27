@@ -1,0 +1,34 @@
+services:
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    environment:
+      # .env aponta REDIS_HOST=localhost para uso fora do Docker; dentro da
+      # rede do compose o Redis é alcançado pelo nome do serviço.
+      REDIS_HOST: redis
+    depends_on:
+      - redis
+
+  # Roda toda a suíte de testes (unitários + integração contra o Redis real
+  # deste mesmo compose) sem precisar de Go instalado localmente:
+  #   docker compose run --rm test
+  test:
+    build:
+      context: .
+      target: builder
+    working_dir: /app
+    command: go test ./... -v
+    env_file:
+      - .env
+    environment:
+      REDIS_HOST: redis
+    depends_on:
+      - redis
