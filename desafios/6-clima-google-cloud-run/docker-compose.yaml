@@ -1,0 +1,21 @@
+services:
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+
+  # Roda toda a suíte de testes sem precisar de Go instalado localmente:
+  #   docker compose run --rm test
+  # Os testes não fazem chamada real à internet (ViaCEP e WeatherAPI são
+  # simulados com httptest.NewServer), então rodam mesmo sem uma
+  # WEATHER_API_KEY válida no .env.
+  test:
+    build:
+      context: .
+      target: builder
+    working_dir: /app
+    command: go test ./... -v
+    env_file:
+      - .env

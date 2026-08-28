@@ -1,0 +1,77 @@
+services:
+  service-a:
+    build:
+      context: .
+      args:
+        CMD_PATH: ./cmd/service-a
+    ports:
+      - "${SERVICE_A_PORT}:${SERVICE_A_PORT}"
+    environment:
+      - OTEL_SERVICE_NAME=service-a
+    env_file:
+      - .env
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:${SERVICE_A_PORT}/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+      start_period: 5s
+    depends_on:
+      service-b:
+        condition: service_healthy
+      otel-collector:
+        condition: service_started
+
+  service-b:
+    build:
+      context: .
+      args:
+        CMD_PATH: ./cmd/service-b
+    ports:
+      - "${SERVICE_B_PORT}:${SERVICE_B_PORT}"
+    environment:
+      - OTEL_SERVICE_NAME=service-b
+    env_file:
+      - .env
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:${SERVICE_B_PORT}/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+      start_period: 5s
+    depends_on:
+      otel-collector:
+        condition: service_started
+
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:0.113.0
+    command: ["--config=/etc/otel-collector-config.yaml"]
+    volumes:
+      - ./otel-collector-config.yaml:/etc/otel-collector-config.yaml
+    ports:
+      - "4317:4317"
+      - "4318:4318"
+    depends_on:
+      zipkin:
+        condition: service_healthy
+
+  zipkin:
+    image: openzipkin/zipkin:2
+    ports:
+      - "9411:9411"
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:9411/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+      start_period: 10s
+
+  # Roda toda a suíte de testes sem precisar de Go instalado localmente:
+  #   docker compose run --rm test
+  test:
+    build:
+      context: .
+      target: builder
+    command: go test ./... -v
+    env_file:
+      - .env
