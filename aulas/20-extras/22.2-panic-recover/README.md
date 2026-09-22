@@ -285,13 +285,13 @@ O ponto-chave: o `recoverMiddleware` fica **por fora** de todas as rotas, então
 Nenhuma das duas subpastas tem `go.mod`, então rode com `go run` apontando direto para o arquivo:
 
 ```bash
-# Exemplo 1 — dentro de aulas/20-extras/22.2-panic-recover/1
+# Exemplo 1 — dentro de aulas/20-extras/22.2-panic-recover/01
 go run main.go
 # saída: panic2 recovered
 ```
 
 ```bash
-# Exemplo 2 — dentro de aulas/20-extras/22.2-panic-recover/2
+# Exemplo 2 — dentro de aulas/20-extras/22.2-panic-recover/02
 go run main.go
 # saída: Listening on :3000
 ```

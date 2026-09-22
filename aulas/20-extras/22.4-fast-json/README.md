@@ -261,7 +261,7 @@ O ponto-chave: `fastjson` entra apenas na etapa de **encontrar** o pedaço certo
 Cada subpasta é um módulo independente (já tem `go.mod`/`go.sum`), então rode com `go run .` (ou `go run main.go`) dentro de cada uma:
 
 ```bash
-# Exemplo 1 — dentro de aulas/20-extras/22.4-fast-json/1
+# Exemplo 1 — dentro de aulas/20-extras/22.4-fast-json/01
 go run main.go
 # saída:
 # foo=bar
@@ -273,7 +273,7 @@ go run main.go
 ```
 
 ```bash
-# Exemplo 2 — dentro de aulas/20-extras/22.4-fast-json/2
+# Exemplo 2 — dentro de aulas/20-extras/22.4-fast-json/02
 go run main.go
 # saída: John Doe 30
 ```
